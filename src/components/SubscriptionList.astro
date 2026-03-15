@@ -164,7 +164,7 @@ import EmptyState from './EmptyState.astro';
     const price = Number((document.getElementById('edit-price') as HTMLInputElement).value);
     const startDate = (document.getElementById('edit-start') as HTMLInputElement).value;
     const memo = (document.getElementById('edit-memo') as HTMLTextAreaElement).value.trim();
-    const billingCycle = (document.querySelector<HTMLInputElement>('input[name="edit-cycle"]:checked'))?.value as 'monthly' | 'yearly';
+    const billingCycle = ((document.querySelector<HTMLInputElement>('input[name="edit-cycle"]:checked'))?.value ?? 'monthly') as 'monthly' | 'yearly';
 
     if (!name || price < 0) return;
 

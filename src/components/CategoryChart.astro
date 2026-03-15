@@ -3,7 +3,7 @@
 
 <div class="chart-card card">
   <h2 class="chart-title">カテゴリ別内訳</h2>
-  <div class="chart-wrap" style="position: relative;">
+  <div class="chart-wrap">
     <canvas id="category-chart" aria-label="カテゴリ別サブスク支出の円グラフ" role="img"></canvas>
     <div class="chart-center-label" id="chart-center" aria-hidden="true">
       <span class="chart-center-value price-display" id="chart-center-value">¥0</span>
@@ -49,14 +49,13 @@
   }
 
   .chart-wrap {
+    position: relative;
     height: 260px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   canvas {
-    max-height: 260px;
+    width: 100% !important;
+    height: 100% !important;
   }
 
   .chart-center-label {
