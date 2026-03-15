@@ -80,15 +80,34 @@ import EmptyState from './EmptyState.astro';
 
     // 名前・カテゴリ
     (article.querySelector('.card-name') as HTMLElement).textContent = sub.name;
-    (article.querySelector('.card-category') as HTMLElement).textContent = CATEGORIES[sub.category].label;
+    const categoryEl = article.querySelector('.card-category') as HTMLElement;
+    categoryEl.textContent = CATEGORIES[sub.category].label;
+    if (!sub.isActive) {
+      const badge = document.createElement('span');
+      badge.className = 'inactive-badge';
+      badge.textContent = '一時停止中';
+      categoryEl.insertAdjacentElement('afterend', badge);
+    }
 
     // 金額
     const monthly = toMonthly(sub);
     (article.querySelector('.card-price') as HTMLElement).textContent = formatJPY(monthly);
     (article.querySelector('.card-cycle') as HTMLElement).textContent = sub.billingCycle === 'monthly' ? '/月' : '/月換算';
 
+    // toggle-btn の状態表示
+    const toggleBtn = article.querySelector('.toggle-btn') as HTMLButtonElement;
+    if (sub.isActive) {
+      toggleBtn.style.color = 'var(--accent-green)';
+      toggleBtn.setAttribute('aria-label', '無効にする');
+      toggleBtn.title = '無効にする';
+    } else {
+      toggleBtn.style.color = 'var(--accent-red)';
+      toggleBtn.setAttribute('aria-label', '有効にする');
+      toggleBtn.title = '有効にする';
+    }
+
     // ボタン
-    article.querySelector('.toggle-btn')?.addEventListener('click', () => {
+    toggleBtn.addEventListener('click', () => {
       SubscriptionStore.toggleActive(sub.id);
       showToast(sub.isActive ? '無効にしました' : '有効にしました');
     });
