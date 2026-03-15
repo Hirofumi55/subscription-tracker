@@ -1,0 +1,85 @@
+---
+---
+
+<div class="chart-card card">
+  <h2 class="chart-title">カテゴリ別内訳</h2>
+  <div class="chart-wrap" style="position: relative;">
+    <canvas id="category-chart" aria-label="カテゴリ別サブスク支出の円グラフ" role="img"></canvas>
+    <div class="chart-center-label" id="chart-center" aria-hidden="true">
+      <span class="chart-center-value price-display" id="chart-center-value">¥0</span>
+      <span class="chart-center-sub">月額合計</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { initCategoryChart } from '../scripts/charts';
+  import { SubscriptionStore } from '../scripts/store';
+  import { toMonthly } from '../scripts/subscriptions';
+  import { formatJPY } from '../scripts/currency';
+
+  async function update() {
+    const canvas = document.getElementById('category-chart') as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const subs = SubscriptionStore.getAll();
+    await initCategoryChart(canvas, subs);
+
+    const centerEl = document.getElementById('chart-center-value');
+    if (centerEl) {
+      const total = subs.filter(s => s.isActive).reduce((sum, s) => sum + toMonthly(s), 0);
+      centerEl.textContent = formatJPY(total);
+    }
+  }
+
+  update();
+  window.addEventListener('subtracker:updated', update);
+  window.addEventListener('subtracker:theme-changed', update);
+</script>
+
+<style>
+  .chart-card {
+    padding: 1.5rem;
+  }
+
+  .chart-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+  }
+
+  .chart-wrap {
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  canvas {
+    max-height: 260px;
+  }
+
+  .chart-center-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .chart-center-value {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .chart-center-sub {
+    display: block;
+    font-size: 0.6875rem;
+    color: var(--text-secondary);
+    margin-top: 0.125rem;
+  }
+</style>

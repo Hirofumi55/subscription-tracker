@@ -1,0 +1,101 @@
+---
+import CostSummary from './CostSummary.astro';
+import CategoryChart from './CategoryChart.astro';
+import MonthlyChart from './MonthlyChart.astro';
+import SubscriptionList from './SubscriptionList.astro';
+import CustomSubscriptionForm from './CustomSubscriptionForm.astro';
+import SubscriptionCard from './SubscriptionCard.astro';
+---
+
+<main class="dashboard" id="main-content">
+  <!-- Hero -->
+  <section class="hero" aria-label="ヒーローセクション">
+    <div class="hero-inner">
+      <h1 class="hero-title animate-fade-up">あなたのサブスク、<br />ひと目で把握。</h1>
+      <p class="hero-sub animate-fade-up" style="animation-delay: 0.15s">
+        登録中のサービスをまとめて管理。<br />毎月いくら使っているか、すぐわかる。
+      </p>
+    </div>
+  </section>
+
+  <div class="content-wrap">
+    <!-- コストサマリー -->
+    <CostSummary />
+
+    <!-- チャート -->
+    <section class="charts-section" aria-label="グラフ">
+      <div class="charts-grid">
+        <CategoryChart />
+        <MonthlyChart />
+      </div>
+    </section>
+
+    <!-- サブスク一覧 -->
+    <SubscriptionList />
+
+    <!-- サブスク追加 -->
+    <CustomSubscriptionForm />
+  </div>
+</main>
+
+<!-- カードテンプレート（JSから参照） -->
+<SubscriptionCard />
+
+<style>
+  .dashboard {
+    min-height: 100vh;
+  }
+
+  /* ヒーロー */
+  .hero {
+    background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    padding: 5rem 1.5rem 3rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .hero-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .hero-sub {
+    font-size: 1.0625rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    animation-delay: 0.15s;
+  }
+
+  /* コンテンツ幅制限 */
+  .content-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  /* チャート */
+  .charts-section {
+    margin: 2rem 0;
+  }
+
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .charts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

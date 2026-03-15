@@ -1,0 +1,129 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-copy">© {year} SubTracker — データはすべてブラウザ内に保存されます</p>
+    <div class="footer-actions">
+      <button id="export-btn" class="footer-link" type="button">データをエクスポート</button>
+      <span class="separator" aria-hidden="true">·</span>
+      <button id="import-btn" class="footer-link" type="button">インポート</button>
+      <span class="separator" aria-hidden="true">·</span>
+      <button id="reset-btn" class="footer-link footer-link--danger" type="button">全データリセット</button>
+    </div>
+  </div>
+
+  <!-- インポート用隠しinput -->
+  <input type="file" id="import-file-input" accept=".json" class="sr-only" aria-label="JSONファイルをインポート" />
+</footer>
+
+<script>
+  import { SubscriptionStore } from '../scripts/store';
+  import { showToast } from '../scripts/toast';
+
+  // エクスポート
+  document.getElementById('export-btn')?.addEventListener('click', () => {
+    const data = SubscriptionStore.exportData();
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `subtracker-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('エクスポートしました');
+  });
+
+  // インポート
+  document.getElementById('import-btn')?.addEventListener('click', () => {
+    document.getElementById('import-file-input')?.click();
+  });
+
+  document.getElementById('import-file-input')?.addEventListener('change', (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        SubscriptionStore.importData(ev.target?.result as string);
+        showToast('インポートしました');
+      } catch (err) {
+        showToast(err instanceof Error ? err.message : 'インポートに失敗しました', 'error');
+      }
+    };
+    reader.readAsText(file);
+  });
+
+  // リセット
+  document.getElementById('reset-btn')?.addEventListener('click', () => {
+    if (confirm('すべてのデータを削除しますか？この操作は元に戻せません。')) {
+      SubscriptionStore.reset();
+      showToast('データをリセットしました');
+    }
+  });
+</script>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 5rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .footer-copy {
+    color: var(--text-tertiary);
+    font-size: 0.8125rem;
+  }
+
+  .footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    font-family: inherit;
+  }
+
+  .footer-link:hover {
+    color: var(--text-primary);
+  }
+
+  .footer-link--danger:hover {
+    color: var(--accent-red);
+  }
+
+  .separator {
+    color: var(--text-tertiary);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
+</style>

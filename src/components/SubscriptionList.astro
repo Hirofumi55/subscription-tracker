@@ -1,0 +1,257 @@
+---
+import EmptyState from './EmptyState.astro';
+---
+
+<section id="subscriptions" class="subs-section" aria-label="登録済みサブスクリプション一覧">
+  <div class="section-header">
+    <h2 class="section-title">マイサブスク</h2>
+    <p class="section-sub" id="active-count" aria-live="polite"></p>
+  </div>
+
+  <EmptyState />
+
+  <div id="subscription-list" class="sub-list" role="list" aria-label="サブスクリプション一覧">
+    <!-- JSで動的に生成 -->
+  </div>
+</section>
+
+<!-- 編集モーダル -->
+<dialog id="edit-modal" aria-modal="true" aria-labelledby="edit-modal-title">
+  <h2 id="edit-modal-title" class="modal-title">サブスクを編集</h2>
+  <form id="edit-form" class="modal-form" novalidate>
+    <input type="hidden" id="edit-id" />
+    <div class="form-group">
+      <label for="edit-name" class="form-label">サービス名 <span aria-hidden="true">*</span></label>
+      <input type="text" id="edit-name" required maxlength="50" />
+    </div>
+    <div class="form-group">
+      <label for="edit-price" class="form-label">金額（円） <span aria-hidden="true">*</span></label>
+      <input type="number" id="edit-price" required min="0" step="1" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">支払い周期</label>
+      <div class="cycle-toggle">
+        <label class="cycle-option">
+          <input type="radio" name="edit-cycle" value="monthly" /> 月額
+        </label>
+        <label class="cycle-option">
+          <input type="radio" name="edit-cycle" value="yearly" /> 年額
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="edit-start" class="form-label">開始日</label>
+      <input type="date" id="edit-start" />
+    </div>
+    <div class="form-group">
+      <label for="edit-memo" class="form-label">メモ</label>
+      <textarea id="edit-memo" rows="2" maxlength="200"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" id="edit-cancel">キャンセル</button>
+      <button type="submit" class="btn-primary">保存</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+  import { SubscriptionStore } from '../scripts/store';
+  import { CATEGORIES, toMonthly, formatJPY } from '../scripts/subscriptions';
+  import type { Subscription } from '../scripts/subscriptions';
+  import { showToast } from '../scripts/toast';
+
+  function getInitials(name: string): string {
+    return name.slice(0, 2).toUpperCase();
+  }
+
+  function renderCard(sub: Subscription): HTMLElement {
+    const template = document.getElementById('subscription-card-template') as HTMLTemplateElement | null;
+    if (!template) throw new Error('template not found');
+    const clone = template.content.cloneNode(true) as DocumentFragment;
+    const article = clone.querySelector('.sub-card') as HTMLElement;
+
+    article.dataset.id = sub.id;
+    if (!sub.isActive) article.classList.add('inactive');
+
+    // アイコン
+    const iconEl = article.querySelector('.card-icon') as HTMLElement;
+    iconEl.style.background = sub.color;
+    iconEl.textContent = getInitials(sub.name);
+
+    // 名前・カテゴリ
+    (article.querySelector('.card-name') as HTMLElement).textContent = sub.name;
+    (article.querySelector('.card-category') as HTMLElement).textContent = CATEGORIES[sub.category].label;
+
+    // 金額
+    const monthly = toMonthly(sub);
+    (article.querySelector('.card-price') as HTMLElement).textContent = formatJPY(monthly);
+    (article.querySelector('.card-cycle') as HTMLElement).textContent = sub.billingCycle === 'monthly' ? '/月' : '/月換算';
+
+    // ボタン
+    article.querySelector('.toggle-btn')?.addEventListener('click', () => {
+      SubscriptionStore.toggleActive(sub.id);
+      showToast(sub.isActive ? '無効にしました' : '有効にしました');
+    });
+
+    article.querySelector('.edit-btn')?.addEventListener('click', () => openEditModal(sub.id));
+
+    article.querySelector('.delete-btn')?.addEventListener('click', () => {
+      if (confirm(`「${sub.name}」を削除しますか？`)) {
+        article.classList.add('animate-slide-out');
+        article.addEventListener('animationend', () => {
+          SubscriptionStore.remove(sub.id);
+          showToast(`「${sub.name}」を削除しました`);
+        }, { once: true });
+      }
+    });
+
+    return article;
+  }
+
+  function render() {
+    const subs = SubscriptionStore.getAll();
+    const listEl = document.getElementById('subscription-list')!;
+    const emptyEl = document.getElementById('empty-state')!;
+    const countEl = document.getElementById('active-count')!;
+
+    listEl.innerHTML = '';
+    const active = subs.filter(s => s.isActive).length;
+    countEl.textContent = subs.length > 0 ? `${subs.length}件中 ${active}件有効` : '';
+
+    if (subs.length === 0) {
+      emptyEl.hidden = false;
+      listEl.hidden = true;
+    } else {
+      emptyEl.hidden = true;
+      listEl.hidden = false;
+      subs.forEach((sub, i) => {
+        const card = renderCard(sub);
+        (card as HTMLElement).style.animationDelay = `${i * 0.05}s`;
+        listEl.appendChild(card);
+      });
+    }
+  }
+
+  // 編集モーダル
+  function openEditModal(id: string) {
+    const sub = SubscriptionStore.getAll().find(s => s.id === id);
+    if (!sub) return;
+
+    (document.getElementById('edit-id') as HTMLInputElement).value = id;
+    (document.getElementById('edit-name') as HTMLInputElement).value = sub.name;
+    (document.getElementById('edit-price') as HTMLInputElement).value = String(sub.price);
+    (document.getElementById('edit-start') as HTMLInputElement).value = sub.startDate;
+    (document.getElementById('edit-memo') as HTMLTextAreaElement).value = sub.memo ?? '';
+
+    const radios = document.querySelectorAll<HTMLInputElement>('input[name="edit-cycle"]');
+    radios.forEach(r => { r.checked = r.value === sub.billingCycle; });
+
+    (document.getElementById('edit-modal') as HTMLDialogElement).showModal();
+  }
+
+  document.getElementById('edit-cancel')?.addEventListener('click', () => {
+    (document.getElementById('edit-modal') as HTMLDialogElement).close();
+  });
+
+  document.getElementById('edit-modal')?.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) (e.currentTarget as HTMLDialogElement).close();
+  });
+
+  document.getElementById('edit-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const id = (document.getElementById('edit-id') as HTMLInputElement).value;
+    const name = (document.getElementById('edit-name') as HTMLInputElement).value.trim();
+    const price = Number((document.getElementById('edit-price') as HTMLInputElement).value);
+    const startDate = (document.getElementById('edit-start') as HTMLInputElement).value;
+    const memo = (document.getElementById('edit-memo') as HTMLTextAreaElement).value.trim();
+    const billingCycle = (document.querySelector<HTMLInputElement>('input[name="edit-cycle"]:checked'))?.value as 'monthly' | 'yearly';
+
+    if (!name || price < 0) return;
+
+    SubscriptionStore.update(id, { name, price, startDate, memo: memo || undefined, billingCycle });
+    (document.getElementById('edit-modal') as HTMLDialogElement).close();
+    showToast('変更を保存しました');
+  });
+
+  render();
+  window.addEventListener('subtracker:updated', render);
+</script>
+
+<style>
+  .subs-section {
+    margin: 3rem 0;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .section-sub {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  .sub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+  }
+
+  .modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .form-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .cycle-toggle {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .cycle-option {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    cursor: pointer;
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+</style>

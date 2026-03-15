@@ -1,0 +1,82 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'SubTracker - サブスク費用トラッカー',
+  description = 'Netflix、Spotify、Claude Proなどのサブスクリプション費用を一元管理。月額・年額・累計コストを美しいチャートで可視化。',
+} = Astro.props;
+
+const ogImage = '/og-image.png';
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#000000" />
+
+    <!-- OGP -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <title>{title}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- FOUC防止: テーマ適用 -->
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('subtracker-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "SubTracker",
+        "description": "サブスクリプション費用管理ツール",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "JPY"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Service Worker登録 -->
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js');
+        });
+      }
+    </script>
+    <slot />
+    <!-- トースト通知コンテナ -->
+    <div id="toast-container" aria-live="polite"></div>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

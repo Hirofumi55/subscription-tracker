@@ -1,0 +1,343 @@
+[
+  {
+    "name": "Netflix（スタンダード）",
+    "price": 1590,
+    "billingCycle": "monthly",
+    "category": "video",
+    "icon": "tv-2",
+    "color": "#E50914"
+  },
+  {
+    "name": "Netflix（プレミアム）",
+    "price": 1990,
+    "billingCycle": "monthly",
+    "category": "video",
+    "icon": "tv-2",
+    "color": "#E50914"
+  },
+  {
+    "name": "Amazon Prime",
+    "price": 600,
+    "billingCycle": "monthly",
+    "category": "video",
+    "icon": "shopping-bag",
+    "color": "#FF9900",
+    "yearlyPrice": 5900
+  },
+  {
+    "name": "Disney+（スタンダード）",
+    "price": 990,
+    "billingCycle": "monthly",
+    "category": "video",
+    "icon": "star",
+    "color": "#113CCF",
+    "yearlyPrice": 9900
+  },
+  {
+    "name": "YouTube Premium",
+    "price": 1280,
+    "billingCycle": "monthly",
+    "category": "video",
+    "icon": "youtube",
+    "color": "#FF0000"
+  },
+  {
+    "name": "Hulu",
+    "price": 1026,
+    "billingCycle": "monthly",
+    "category": "video",
+    "icon": "play-circle",
+    "color": "#1CE783"
+  },
+  {
+    "name": "U-NEXT",
+    "price": 2189,
+    "billingCycle": "monthly",
+    "category": "video",
+    "icon": "play-circle",
+    "color": "#00C8FF"
+  },
+  {
+    "name": "Apple TV+",
+    "price": 900,
+    "billingCycle": "monthly",
+    "category": "video",
+    "icon": "apple",
+    "color": "#555555"
+  },
+  {
+    "name": "Spotify Premium",
+    "price": 980,
+    "billingCycle": "monthly",
+    "category": "music",
+    "icon": "music",
+    "color": "#1DB954"
+  },
+  {
+    "name": "Apple Music",
+    "price": 1080,
+    "billingCycle": "monthly",
+    "category": "music",
+    "icon": "music-2",
+    "color": "#FA243C"
+  },
+  {
+    "name": "Amazon Music Unlimited",
+    "price": 1080,
+    "billingCycle": "monthly",
+    "category": "music",
+    "icon": "music",
+    "color": "#25D1DA"
+  },
+  {
+    "name": "YouTube Music Premium",
+    "price": 1280,
+    "billingCycle": "monthly",
+    "category": "music",
+    "icon": "music",
+    "color": "#FF0000"
+  },
+  {
+    "name": "Claude Pro",
+    "price": 3000,
+    "billingCycle": "monthly",
+    "category": "ai",
+    "icon": "brain",
+    "color": "#D97757",
+    "yearlyPrice": 30000
+  },
+  {
+    "name": "Claude Max 5x",
+    "price": 15000,
+    "billingCycle": "monthly",
+    "category": "ai",
+    "icon": "brain",
+    "color": "#D97757"
+  },
+  {
+    "name": "Claude Max 20x",
+    "price": 30000,
+    "billingCycle": "monthly",
+    "category": "ai",
+    "icon": "brain",
+    "color": "#D97757"
+  },
+  {
+    "name": "ChatGPT Go",
+    "price": 1500,
+    "billingCycle": "monthly",
+    "category": "ai",
+    "icon": "bot",
+    "color": "#10A37F"
+  },
+  {
+    "name": "ChatGPT Plus",
+    "price": 3000,
+    "billingCycle": "monthly",
+    "category": "ai",
+    "icon": "bot",
+    "color": "#10A37F"
+  },
+  {
+    "name": "ChatGPT Pro",
+    "price": 30000,
+    "billingCycle": "monthly",
+    "category": "ai",
+    "icon": "bot",
+    "color": "#10A37F"
+  },
+  {
+    "name": "Google AI Pro",
+    "price": 2900,
+    "billingCycle": "monthly",
+    "category": "ai",
+    "icon": "sparkles",
+    "color": "#4285F4",
+    "yearlyPrice": 29000
+  },
+  {
+    "name": "Google AI Ultra",
+    "price": 36400,
+    "billingCycle": "monthly",
+    "category": "ai",
+    "icon": "sparkles",
+    "color": "#4285F4"
+  },
+  {
+    "name": "GitHub Copilot",
+    "price": 1500,
+    "billingCycle": "monthly",
+    "category": "ai",
+    "icon": "code-2",
+    "color": "#6E40C9",
+    "yearlyPrice": 15000
+  },
+  {
+    "name": "Perplexity Pro",
+    "price": 3000,
+    "billingCycle": "monthly",
+    "category": "ai",
+    "icon": "search",
+    "color": "#20808D",
+    "yearlyPrice": 30000
+  },
+  {
+    "name": "iCloud+（200GB）",
+    "price": 400,
+    "billingCycle": "monthly",
+    "category": "cloud",
+    "icon": "cloud",
+    "color": "#3693F5"
+  },
+  {
+    "name": "iCloud+（2TB）",
+    "price": 1300,
+    "billingCycle": "monthly",
+    "category": "cloud",
+    "icon": "cloud",
+    "color": "#3693F5"
+  },
+  {
+    "name": "Google One（100GB）",
+    "price": 250,
+    "billingCycle": "monthly",
+    "category": "cloud",
+    "icon": "cloud",
+    "color": "#4285F4",
+    "yearlyPrice": 2500
+  },
+  {
+    "name": "Google One（2TB）",
+    "price": 1300,
+    "billingCycle": "monthly",
+    "category": "cloud",
+    "icon": "cloud",
+    "color": "#4285F4",
+    "yearlyPrice": 13000
+  },
+  {
+    "name": "Dropbox Plus",
+    "price": 1500,
+    "billingCycle": "monthly",
+    "category": "cloud",
+    "icon": "box",
+    "color": "#0061FF",
+    "yearlyPrice": 14400
+  },
+  {
+    "name": "Microsoft 365 Personal",
+    "price": 1490,
+    "billingCycle": "monthly",
+    "category": "productivity",
+    "icon": "grid",
+    "color": "#D83B01",
+    "yearlyPrice": 14900
+  },
+  {
+    "name": "Notion Plus",
+    "price": 1650,
+    "billingCycle": "monthly",
+    "category": "productivity",
+    "icon": "file-text",
+    "color": "#37352F"
+  },
+  {
+    "name": "Adobe Creative Cloud",
+    "price": 7780,
+    "billingCycle": "monthly",
+    "category": "productivity",
+    "icon": "layers",
+    "color": "#FF0000",
+    "yearlyPrice": 72336
+  },
+  {
+    "name": "Nintendo Switch Online",
+    "price": 306,
+    "billingCycle": "monthly",
+    "category": "gaming",
+    "icon": "gamepad-2",
+    "color": "#E60012",
+    "yearlyPrice": 2400
+  },
+  {
+    "name": "PS Plus Essential",
+    "price": 850,
+    "billingCycle": "monthly",
+    "category": "gaming",
+    "icon": "gamepad-2",
+    "color": "#003087",
+    "yearlyPrice": 6800
+  },
+  {
+    "name": "Xbox Game Pass Core",
+    "price": 842,
+    "billingCycle": "monthly",
+    "category": "gaming",
+    "icon": "gamepad-2",
+    "color": "#107C10"
+  },
+  {
+    "name": "日経電子版",
+    "price": 4277,
+    "billingCycle": "monthly",
+    "category": "news",
+    "icon": "newspaper",
+    "color": "#003E6E"
+  },
+  {
+    "name": "NewsPicks",
+    "price": 1850,
+    "billingCycle": "monthly",
+    "category": "news",
+    "icon": "newspaper",
+    "color": "#FFDD00"
+  },
+  {
+    "name": "Audible",
+    "price": 1500,
+    "billingCycle": "monthly",
+    "category": "news",
+    "icon": "headphones",
+    "color": "#F8991C"
+  },
+  {
+    "name": "chocoZAP（チョコザップ）",
+    "price": 3278,
+    "billingCycle": "monthly",
+    "category": "fitness",
+    "icon": "dumbbell",
+    "color": "#7B2D8E"
+  },
+  {
+    "name": "エニタイムフィットネス",
+    "price": 7500,
+    "billingCycle": "monthly",
+    "category": "fitness",
+    "icon": "dumbbell",
+    "color": "#6C2D82"
+  },
+  {
+    "name": "JOYFIT24",
+    "price": 7500,
+    "billingCycle": "monthly",
+    "category": "fitness",
+    "icon": "dumbbell",
+    "color": "#FF6600"
+  },
+  {
+    "name": "FIT PLACE24",
+    "price": 3278,
+    "billingCycle": "monthly",
+    "category": "fitness",
+    "icon": "dumbbell",
+    "color": "#00B4D8"
+  },
+  {
+    "name": "ゴールドジム",
+    "price": 13000,
+    "billingCycle": "monthly",
+    "category": "fitness",
+    "icon": "dumbbell",
+    "color": "#FFD700"
+  }
+]

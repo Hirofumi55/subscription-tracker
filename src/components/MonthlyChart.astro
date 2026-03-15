@@ -1,0 +1,45 @@
+---
+---
+
+<div class="chart-card card">
+  <h2 class="chart-title">月別推移（直近12ヶ月）</h2>
+  <div class="chart-wrap">
+    <canvas id="monthly-chart" aria-label="直近12ヶ月の月別支出推移の棒グラフ" role="img"></canvas>
+  </div>
+</div>
+
+<script>
+  import { initMonthlyChart } from '../scripts/charts';
+  import { SubscriptionStore } from '../scripts/store';
+
+  async function update() {
+    const canvas = document.getElementById('monthly-chart') as HTMLCanvasElement | null;
+    if (!canvas) return;
+    await initMonthlyChart(canvas, SubscriptionStore.getAll());
+  }
+
+  update();
+  window.addEventListener('subtracker:updated', update);
+  window.addEventListener('subtracker:theme-changed', update);
+</script>
+
+<style>
+  .chart-card {
+    padding: 1.5rem;
+  }
+
+  .chart-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+  }
+
+  .chart-wrap {
+    height: 260px;
+  }
+
+  canvas {
+    max-height: 260px;
+  }
+</style>

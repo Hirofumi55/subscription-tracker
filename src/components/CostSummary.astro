@@ -1,0 +1,114 @@
+---
+---
+
+<section class="cost-summary" aria-label="費用サマリー">
+  <div class="summary-grid">
+    <div class="summary-card card" style="animation-delay: 0s">
+      <p class="summary-label">月額合計</p>
+      <p class="summary-amount price-display" id="monthly-total" aria-live="polite">¥0</p>
+      <p class="summary-sub" id="monthly-count">0件のサブスク</p>
+    </div>
+    <div class="summary-card card" style="animation-delay: 0.1s">
+      <p class="summary-label">年額合計</p>
+      <p class="summary-amount price-display" id="yearly-total" aria-live="polite">¥0</p>
+      <p class="summary-sub">月額換算 ×12</p>
+    </div>
+    <div class="summary-card card" style="animation-delay: 0.2s">
+      <p class="summary-label">累計支出</p>
+      <p class="summary-amount price-display" id="total-spent" aria-live="polite">¥0</p>
+      <p class="summary-sub">開始日から現在まで</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { SubscriptionStore } from '../scripts/store';
+  import { toMonthly, toYearly, totalSpent } from '../scripts/subscriptions';
+
+  function animateCount(el: HTMLElement, targetValue: number, duration = 1200): void {
+    const start = performance.now();
+    const formatter = new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY', maximumFractionDigits: 0 });
+
+    function step(now: number) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutExpo
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      el.textContent = formatter.format(Math.round(targetValue * ease));
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function update() {
+    const subs = SubscriptionStore.getAll().filter(s => s.isActive);
+    const monthly = subs.reduce((sum, s) => sum + toMonthly(s), 0);
+    const yearly = subs.reduce((sum, s) => sum + toYearly(s), 0);
+    const spent = subs.reduce((sum, s) => sum + totalSpent(s), 0);
+
+    const mEl = document.getElementById('monthly-total');
+    const yEl = document.getElementById('yearly-total');
+    const tEl = document.getElementById('total-spent');
+    const cEl = document.getElementById('monthly-count');
+
+    if (mEl) animateCount(mEl, monthly);
+    if (yEl) animateCount(yEl, yearly);
+    if (tEl) animateCount(tEl, spent);
+    if (cEl) cEl.textContent = `${subs.length}件のサブスク`;
+  }
+
+  update();
+  window.addEventListener('subtracker:updated', update);
+</script>
+
+<style>
+  .cost-summary {
+    margin: 2rem 0;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .summary-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .summary-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .summary-card {
+    padding: 1.5rem;
+    animation: fadeUp 0.6s ease-out both;
+  }
+
+  .summary-label {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .summary-amount {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+  }
+
+  .summary-sub {
+    font-size: 0.8125rem;
+    color: var(--text-tertiary);
+  }
+</style>
