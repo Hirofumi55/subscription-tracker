@@ -76,7 +76,17 @@ import EmptyState from './EmptyState.astro';
     // アイコン
     const iconEl = article.querySelector('.card-icon') as HTMLElement;
     iconEl.style.background = sub.color;
-    iconEl.textContent = getInitials(sub.name);
+    if (sub.icon.startsWith('/brand/')) {
+      const img = document.createElement('img');
+      img.src = sub.icon;
+      img.alt = '';
+      img.width = 28;
+      img.height = 28;
+      img.style.display = 'block';
+      iconEl.appendChild(img);
+    } else {
+      iconEl.textContent = getInitials(sub.name);
+    }
 
     // 名前・カテゴリ
     (article.querySelector('.card-name') as HTMLElement).textContent = sub.name;

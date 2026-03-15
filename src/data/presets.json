@@ -4,7 +4,7 @@
     "price": 1590,
     "billingCycle": "monthly",
     "category": "video",
-    "icon": "tv-2",
+    "icon": "/brand/netflix.svg",
     "color": "#E50914"
   },
   {
@@ -12,7 +12,7 @@
     "price": 1990,
     "billingCycle": "monthly",
     "category": "video",
-    "icon": "tv-2",
+    "icon": "/brand/netflix.svg",
     "color": "#E50914"
   },
   {
@@ -20,7 +20,7 @@
     "price": 600,
     "billingCycle": "monthly",
     "category": "video",
-    "icon": "shopping-bag",
+    "icon": "/brand/amazon-prime.svg",
     "color": "#FF9900",
     "yearlyPrice": 5900
   },
@@ -29,7 +29,7 @@
     "price": 990,
     "billingCycle": "monthly",
     "category": "video",
-    "icon": "star",
+    "icon": "/brand/disney-plus.svg",
     "color": "#113CCF",
     "yearlyPrice": 9900
   },
@@ -38,7 +38,7 @@
     "price": 1280,
     "billingCycle": "monthly",
     "category": "video",
-    "icon": "youtube",
+    "icon": "/brand/youtube.svg",
     "color": "#FF0000"
   },
   {
@@ -46,7 +46,7 @@
     "price": 1026,
     "billingCycle": "monthly",
     "category": "video",
-    "icon": "play-circle",
+    "icon": "/brand/hulu.svg",
     "color": "#1CE783"
   },
   {
@@ -54,7 +54,7 @@
     "price": 2189,
     "billingCycle": "monthly",
     "category": "video",
-    "icon": "play-circle",
+    "icon": "/brand/unext.svg",
     "color": "#00C8FF"
   },
   {
@@ -62,7 +62,7 @@
     "price": 900,
     "billingCycle": "monthly",
     "category": "video",
-    "icon": "apple",
+    "icon": "/brand/apple.svg",
     "color": "#555555"
   },
   {
@@ -70,7 +70,7 @@
     "price": 980,
     "billingCycle": "monthly",
     "category": "music",
-    "icon": "music",
+    "icon": "/brand/spotify.svg",
     "color": "#1DB954"
   },
   {
@@ -78,7 +78,7 @@
     "price": 1080,
     "billingCycle": "monthly",
     "category": "music",
-    "icon": "music-2",
+    "icon": "/brand/apple-music.svg",
     "color": "#FA243C"
   },
   {
@@ -86,7 +86,7 @@
     "price": 1080,
     "billingCycle": "monthly",
     "category": "music",
-    "icon": "music",
+    "icon": "/brand/amazon-music.svg",
     "color": "#25D1DA"
   },
   {
@@ -94,7 +94,7 @@
     "price": 1280,
     "billingCycle": "monthly",
     "category": "music",
-    "icon": "music",
+    "icon": "/brand/youtube-music.svg",
     "color": "#FF0000"
   },
   {
@@ -102,7 +102,7 @@
     "price": 3000,
     "billingCycle": "monthly",
     "category": "ai",
-    "icon": "brain",
+    "icon": "/brand/claude.svg",
     "color": "#D97757",
     "yearlyPrice": 30000
   },
@@ -111,7 +111,7 @@
     "price": 15000,
     "billingCycle": "monthly",
     "category": "ai",
-    "icon": "brain",
+    "icon": "/brand/claude.svg",
     "color": "#D97757"
   },
   {
@@ -119,7 +119,7 @@
     "price": 30000,
     "billingCycle": "monthly",
     "category": "ai",
-    "icon": "brain",
+    "icon": "/brand/claude.svg",
     "color": "#D97757"
   },
   {
@@ -127,7 +127,7 @@
     "price": 1500,
     "billingCycle": "monthly",
     "category": "ai",
-    "icon": "bot",
+    "icon": "/brand/chatgpt.svg",
     "color": "#10A37F"
   },
   {
@@ -135,7 +135,7 @@
     "price": 3000,
     "billingCycle": "monthly",
     "category": "ai",
-    "icon": "bot",
+    "icon": "/brand/chatgpt.svg",
     "color": "#10A37F"
   },
   {
@@ -143,7 +143,7 @@
     "price": 30000,
     "billingCycle": "monthly",
     "category": "ai",
-    "icon": "bot",
+    "icon": "/brand/chatgpt.svg",
     "color": "#10A37F"
   },
   {
@@ -151,7 +151,7 @@
     "price": 2900,
     "billingCycle": "monthly",
     "category": "ai",
-    "icon": "sparkles",
+    "icon": "/brand/google-ai.svg",
     "color": "#4285F4",
     "yearlyPrice": 29000
   },
@@ -160,7 +160,7 @@
     "price": 36400,
     "billingCycle": "monthly",
     "category": "ai",
-    "icon": "sparkles",
+    "icon": "/brand/google-ai.svg",
     "color": "#4285F4"
   },
   {
@@ -168,7 +168,7 @@
     "price": 1500,
     "billingCycle": "monthly",
     "category": "ai",
-    "icon": "code-2",
+    "icon": "/brand/github-copilot.svg",
     "color": "#6E40C9",
     "yearlyPrice": 15000
   },
@@ -177,7 +177,7 @@
     "price": 3000,
     "billingCycle": "monthly",
     "category": "ai",
-    "icon": "search",
+    "icon": "/brand/perplexity.svg",
     "color": "#20808D",
     "yearlyPrice": 30000
   },
@@ -186,7 +186,7 @@
     "price": 400,
     "billingCycle": "monthly",
     "category": "cloud",
-    "icon": "cloud",
+    "icon": "/brand/icloud.svg",
     "color": "#3693F5"
   },
   {
@@ -194,7 +194,7 @@
     "price": 1300,
     "billingCycle": "monthly",
     "category": "cloud",
-    "icon": "cloud",
+    "icon": "/brand/icloud.svg",
     "color": "#3693F5"
   },
   {
@@ -202,7 +202,7 @@
     "price": 250,
     "billingCycle": "monthly",
     "category": "cloud",
-    "icon": "cloud",
+    "icon": "/brand/google-one.svg",
     "color": "#4285F4",
     "yearlyPrice": 2500
   },
@@ -211,7 +211,7 @@
     "price": 1300,
     "billingCycle": "monthly",
     "category": "cloud",
-    "icon": "cloud",
+    "icon": "/brand/google-one.svg",
     "color": "#4285F4",
     "yearlyPrice": 13000
   },
@@ -220,7 +220,7 @@
     "price": 1500,
     "billingCycle": "monthly",
     "category": "cloud",
-    "icon": "box",
+    "icon": "/brand/dropbox.svg",
     "color": "#0061FF",
     "yearlyPrice": 14400
   },
@@ -229,7 +229,7 @@
     "price": 1490,
     "billingCycle": "monthly",
     "category": "productivity",
-    "icon": "grid",
+    "icon": "/brand/microsoft.svg",
     "color": "#D83B01",
     "yearlyPrice": 14900
   },
@@ -238,7 +238,7 @@
     "price": 1650,
     "billingCycle": "monthly",
     "category": "productivity",
-    "icon": "file-text",
+    "icon": "/brand/notion.svg",
     "color": "#37352F"
   },
   {
@@ -246,7 +246,7 @@
     "price": 7780,
     "billingCycle": "monthly",
     "category": "productivity",
-    "icon": "layers",
+    "icon": "/brand/adobe.svg",
     "color": "#FF0000",
     "yearlyPrice": 72336
   },
@@ -255,7 +255,7 @@
     "price": 306,
     "billingCycle": "monthly",
     "category": "gaming",
-    "icon": "gamepad-2",
+    "icon": "/brand/nintendo.svg",
     "color": "#E60012",
     "yearlyPrice": 2400
   },
@@ -264,7 +264,7 @@
     "price": 850,
     "billingCycle": "monthly",
     "category": "gaming",
-    "icon": "gamepad-2",
+    "icon": "/brand/playstation.svg",
     "color": "#003087",
     "yearlyPrice": 6800
   },
@@ -273,7 +273,7 @@
     "price": 842,
     "billingCycle": "monthly",
     "category": "gaming",
-    "icon": "gamepad-2",
+    "icon": "/brand/xbox.svg",
     "color": "#107C10"
   },
   {
@@ -281,7 +281,7 @@
     "price": 4277,
     "billingCycle": "monthly",
     "category": "news",
-    "icon": "newspaper",
+    "icon": "/brand/nikkei.svg",
     "color": "#003E6E"
   },
   {
@@ -289,7 +289,7 @@
     "price": 1850,
     "billingCycle": "monthly",
     "category": "news",
-    "icon": "newspaper",
+    "icon": "/brand/newspicks.svg",
     "color": "#FFDD00"
   },
   {
@@ -297,7 +297,7 @@
     "price": 1500,
     "billingCycle": "monthly",
     "category": "news",
-    "icon": "headphones",
+    "icon": "/brand/audible.svg",
     "color": "#F8991C"
   },
   {
@@ -305,7 +305,7 @@
     "price": 3278,
     "billingCycle": "monthly",
     "category": "fitness",
-    "icon": "dumbbell",
+    "icon": "/brand/chocozap.svg",
     "color": "#7B2D8E"
   },
   {
@@ -313,7 +313,7 @@
     "price": 7500,
     "billingCycle": "monthly",
     "category": "fitness",
-    "icon": "dumbbell",
+    "icon": "/brand/anytime.svg",
     "color": "#6C2D82"
   },
   {
@@ -321,7 +321,7 @@
     "price": 7500,
     "billingCycle": "monthly",
     "category": "fitness",
-    "icon": "dumbbell",
+    "icon": "/brand/joyfit.svg",
     "color": "#FF6600"
   },
   {
@@ -329,7 +329,7 @@
     "price": 3278,
     "billingCycle": "monthly",
     "category": "fitness",
-    "icon": "dumbbell",
+    "icon": "/brand/fitplace.svg",
     "color": "#00B4D8"
   },
   {
@@ -337,7 +337,7 @@
     "price": 13000,
     "billingCycle": "monthly",
     "category": "fitness",
-    "icon": "dumbbell",
+    "icon": "/brand/gold-gym.svg",
     "color": "#FFD700"
   }
 ]

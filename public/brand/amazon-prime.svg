@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <text x="12" y="12" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" font-weight="700" fill="white">prime</text>
+    <path d="M5 16 Q12 20 19 16" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M17 14.5 L19.5 16 L17 17.5" fill="white"/>
+  </svg>

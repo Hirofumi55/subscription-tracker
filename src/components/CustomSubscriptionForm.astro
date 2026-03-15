@@ -39,7 +39,7 @@ import type { SubscriptionCategory } from '../scripts/subscriptions';
           aria-label={`${preset.name}を追加`}
         >
           <div class="preset-icon" style={`background: ${preset.color}`} aria-hidden="true">
-            {preset.name.slice(0, 2)}
+            <img src={preset.icon} width="22" height="22" alt="" loading="lazy" />
           </div>
           <div class="preset-info">
             <p class="preset-name">{preset.name}</p>
@@ -273,7 +273,7 @@ import type { SubscriptionCategory } from '../scripts/subscriptions';
       billingCycle,
       category,
       startDate,
-      icon: 'package',
+      icon: `/brand/category-${category}.svg`,
       color: '#71717A',
       isPreset: false,
       isActive: true,
