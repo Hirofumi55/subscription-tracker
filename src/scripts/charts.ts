@@ -9,6 +9,8 @@ async function loadChart() {
   if (Chart) return Chart;
   const module = await import('chart.js');
   module.Chart.register(
+    module.DoughnutController,
+    module.BarController,
     module.ArcElement,
     module.BarElement,
     module.CategoryScale,

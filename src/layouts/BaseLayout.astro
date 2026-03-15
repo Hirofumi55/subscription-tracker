@@ -2,14 +2,18 @@
 interface Props {
   title?: string;
   description?: string;
+  path?: string;
 }
 
 const {
   title = 'SubTracker - サブスク費用トラッカー',
-  description = 'Netflix、Spotify、Claude Proなどのサブスクリプション費用を一元管理。月額・年額・累計コストを美しいチャートで可視化。',
+  description = 'Netflix、Spotify、Claude Proなどのサブスクリプション費用を一元管理。月額・年額・累計コストを美しいチャートで可視化。無料で使えるサブスク管理アプリ。',
+  path = '/',
 } = Astro.props;
 
-const ogImage = '/og-image.png';
+const siteUrl = 'https://subscription-tracker-7pk.pages.dev';
+const canonicalUrl = `${siteUrl}${path}`;
+const ogImage = `${siteUrl}/og-image.png`;
 ---
 
 <!doctype html>
@@ -18,21 +22,37 @@ const ogImage = '/og-image.png';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#000000" />
+    <meta name="keywords" content="サブスク管理,サブスクリプション,費用管理,家計管理,Netflix,Spotify,支出管理,月額,年額" />
+    <meta name="author" content="SubTracker" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <link rel="canonical" href={canonicalUrl} />
 
     <!-- OGP -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SubTracker - サブスク費用トラッカー" />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:locale" content="ja_JP" />
+    <meta property="og:site_name" content="SubTracker" />
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <title>{title}</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <!-- PWA -->
     <link rel="manifest" href="/manifest.webmanifest" />
@@ -45,20 +65,31 @@ const ogImage = '/og-image.png';
       })();
     </script>
 
-    <!-- JSON-LD -->
+    <!-- JSON-LD 構造化データ -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "SubTracker",
-        "description": "サブスクリプション費用管理ツール",
+        "url": "https://subscription-tracker-7pk.pages.dev",
+        "description": "Netflix、Spotify、Claude Proなどのサブスクリプション費用を一元管理。月額・年額・累計コストを美しいチャートで可視化。",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "inLanguage": "ja",
+        "isAccessibleForFree": true,
         "offers": {
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "JPY"
-        }
+        },
+        "featureList": [
+          "サブスクリプション登録・管理",
+          "月額・年額費用の可視化",
+          "カテゴリ別内訳チャート",
+          "月別支出推移グラフ",
+          "データのエクスポート・インポート"
+        ]
       }
     </script>
   </head>
@@ -67,7 +98,7 @@ const ogImage = '/og-image.png';
     <script is:inline>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/sw.js');
+          navigator.serviceWorker.register('/sw.js').catch(function() {});
         });
       }
     </script>
