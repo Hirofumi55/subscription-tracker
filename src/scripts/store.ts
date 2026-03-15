@@ -5,7 +5,52 @@ const STORAGE_KEYS = {
   THEME: 'subtracker-theme',
 } as const;
 
-const CURRENT_VERSION = 1;
+const CURRENT_VERSION = 2;
+
+// v1→v2: icon フィールドを /brand/xxx.svg パスへ移行
+const NAME_TO_ICON: Record<string, string> = {
+  'Netflix（スタンダード）':    '/brand/netflix.svg',
+  'Netflix（プレミアム）':      '/brand/netflix.svg',
+  'Amazon Prime':               '/brand/amazon-prime.svg',
+  'Disney+（スタンダード）':    '/brand/disney-plus.svg',
+  'YouTube Premium':            '/brand/youtube.svg',
+  'Hulu':                       '/brand/hulu.svg',
+  'U-NEXT':                     '/brand/unext.svg',
+  'Apple TV+':                  '/brand/apple.svg',
+  'Spotify Premium':            '/brand/spotify.svg',
+  'Apple Music':                '/brand/apple-music.svg',
+  'Amazon Music Unlimited':     '/brand/amazon-music.svg',
+  'YouTube Music Premium':      '/brand/youtube-music.svg',
+  'Claude Pro':                 '/brand/claude.svg',
+  'Claude Max 5x':              '/brand/claude.svg',
+  'Claude Max 20x':             '/brand/claude.svg',
+  'ChatGPT Go':                 '/brand/chatgpt.svg',
+  'ChatGPT Plus':               '/brand/chatgpt.svg',
+  'ChatGPT Pro':                '/brand/chatgpt.svg',
+  'Google AI Pro':              '/brand/google-ai.svg',
+  'Google AI Ultra':            '/brand/google-ai.svg',
+  'GitHub Copilot':             '/brand/github-copilot.svg',
+  'Perplexity Pro':             '/brand/perplexity.svg',
+  'iCloud+（200GB）':           '/brand/icloud.svg',
+  'iCloud+（2TB）':             '/brand/icloud.svg',
+  'Google One（100GB）':        '/brand/google-one.svg',
+  'Google One（2TB）':          '/brand/google-one.svg',
+  'Dropbox Plus':               '/brand/dropbox.svg',
+  'Microsoft 365 Personal':     '/brand/microsoft.svg',
+  'Notion Plus':                '/brand/notion.svg',
+  'Adobe Creative Cloud':       '/brand/adobe.svg',
+  'Nintendo Switch Online':     '/brand/nintendo.svg',
+  'PS Plus Essential':          '/brand/playstation.svg',
+  'Xbox Game Pass Core':        '/brand/xbox.svg',
+  '日経電子版':                  '/brand/nikkei.svg',
+  'NewsPicks':                  '/brand/newspicks.svg',
+  'Audible':                    '/brand/audible.svg',
+  'chocoZAP（チョコザップ）':   '/brand/chocozap.svg',
+  'エニタイムフィットネス':      '/brand/anytime.svg',
+  'JOYFIT24':                   '/brand/joyfit.svg',
+  'FIT PLACE24':                '/brand/fitplace.svg',
+  'ゴールドジム':                '/brand/gold-gym.svg',
+};
 
 function getDefaultState(): AppState {
   return {
@@ -34,9 +79,27 @@ function saveState(state: AppState): void {
 }
 
 function migrate(data: AppState): AppState {
-  if (data.version >= CURRENT_VERSION) return data;
-  // 将来のマイグレーション用プレースホルダー
-  return { ...data, version: CURRENT_VERSION };
+  let state = { ...data };
+
+  // v1 → v2: icon フィールドを /brand/xxx.svg パスへ更新
+  if (state.version < 2) {
+    state = {
+      ...state,
+      version: 2,
+      subscriptions: state.subscriptions.map(sub => ({
+        ...sub,
+        icon: NAME_TO_ICON[sub.name]
+          ?? (sub.icon.startsWith('/brand/') ? sub.icon : `/brand/category-${sub.category}.svg`),
+      })),
+    };
+    // マイグレーション結果を即座に保存
+    localStorage.setItem(STORAGE_KEYS.APP_STATE, JSON.stringify({
+      ...state,
+      updatedAt: new Date().toISOString(),
+    }));
+  }
+
+  return state;
 }
 
 export const SubscriptionStore = {
